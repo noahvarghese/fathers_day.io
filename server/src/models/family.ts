@@ -7,6 +7,7 @@ export interface FamilyAttributes {
     receiver: number;
     requester_relationship: relationship_types; 
     receiver_relationship: relationship_types;
+    confirmed: boolean;
 }
 
 const EmptyFamilyAttributes = (): FamilyAttributes => ({
@@ -14,6 +15,7 @@ const EmptyFamilyAttributes = (): FamilyAttributes => ({
     receiver : -1,
     requester_relationship: relationship_types.Child,
     receiver_relationship : relationship_types.Parent,
+    confirmed: false
 });
 
 export const FamilyBuilder = <T extends Partial<FamilyAttributes>>(
@@ -30,6 +32,8 @@ export default class Family extends BaseModel implements FamilyAttributes {
     public requester_relationship!: relationship_types;
     @Column()
     public receiver_relationship!: relationship_types;
+    @Column()
+    public confirmed!: boolean;
 
     public constructor(options?: Partial<FamilyAttributes>) {
         super();

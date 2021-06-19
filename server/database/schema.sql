@@ -22,6 +22,7 @@ CREATE TABLE family (
     receiver INT NOT NULL,
     requester_relationship ENUM('HUSBAND', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
     receiver_relationship ENUM('HUSBAND', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
+    confirmed TINYINT(1),
     created_on DATETIME DEFAULT NOW(),
     updated_on DATETIME DEFAULT NOW(),
     deleted_on DATETIME DEFAULT NULL,

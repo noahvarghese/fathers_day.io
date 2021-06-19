@@ -4,13 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "rm -rf ./node_modules && npm i",
+    "build": "rm -rf ./build && tsc -p ./ && mv ./build/src/* ./build/ && rmdir ./build/src",
+    "dev": "nodemon -e ts,.env,json --ignore build/ --ignore test/ --exec ./node_modules/.bin/ts-node ./src/index.ts",
+    "start": "node ./build/index.js",
+    "bdd-test": "./node_modules/.bin/cucumber-js -p default -f @cucumber/pretty-formatter --exit",
+    "unit-test": "jest --maxConcurrency=1 --runInBand --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/cookie-parser": "^1.4.2",
     "@types/cors": "^2.8.10",
     "@types/csurf": "^1.11.1",
     "@types/express": "^4.17.12",

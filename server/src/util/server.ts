@@ -8,7 +8,6 @@ import middlewares from "../middleware";
 import router from "../routes";
 import { createSession } from "./session";
 import { Server } from "http";
-import fileUpload from "express-fileupload";
 
 const port = process.env.PORT ?? 8080;
 
@@ -27,7 +26,6 @@ const setupServer = async (disableLogs = false): Promise<Server> => {
     app.use(express.text());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(fileUpload());
 
     /* Necessary for login and session fucntionality */
     app.use(cookieParser());

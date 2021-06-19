@@ -33,7 +33,7 @@ export default class Coupon extends BaseModel implements CouponAttributes {
     public title!: string;
     @Column()
     public redemption_requested!: boolean;
-    @Column()
+    @Column({type: 'datetime'})
     public to_be_completed_by_date?: Date | undefined;
     @Column()
     public redeemed!: boolean;
@@ -41,7 +41,7 @@ export default class Coupon extends BaseModel implements CouponAttributes {
     public redeem_notes!: string;
     @Column()
     public completed!: boolean;
-    @Column()
+    @Column({type: 'datetime'})
     public completed_on?: Date | undefined;
     @Column()
     public relationship!: number;

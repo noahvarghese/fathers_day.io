@@ -68,7 +68,7 @@ export default class User extends BaseModel implements UserAttributes {
         });
     };
 
-    public hashAndSavePassword = async (_password: string): Promise<string> => {
+    public hashPassword = async (_password: string): Promise<string> => {
         const hash = await new Promise<string>((res, rej) => {
             bcrypt.hash(_password, 12, (err, hash) => {
                 if (err) {
@@ -88,7 +88,7 @@ export default class User extends BaseModel implements UserAttributes {
         token: string
     ): Promise<boolean> => {
         if (this.compareToken(token)) {
-            await this.hashAndSavePassword(password);
+            await this.hashPassword(password);
             this.reset_token = undefined;
             this.reset_token_expiry = undefined;
             return true;
