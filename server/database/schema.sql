@@ -27,7 +27,7 @@ CREATE TABLE family (
     updated_on DATETIME DEFAULT NOW(),
     deleted_on DATETIME DEFAULT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(requester) REFERENCES user(id),
+    FOREIGN KEY(giver) REFERENCES user(id),
     FOREIGN KEY(receiver) REFERENCES user(id)
 );
 
