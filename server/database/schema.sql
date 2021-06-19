@@ -18,9 +18,9 @@ CREATE TABLE user (
 
 CREATE TABLE family (
     id INT NOT NULL AUTO_INCREMENT,
-    requester INT NOT NULL,
+    giver INT NOT NULL,
     receiver INT NOT NULL,
-    requester_relationship ENUM('HUSBAND', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
+    giver_relationship ENUM('HUSBAND', 'WIFE', 'PARTNER', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
     receiver_relationship ENUM('HUSBAND', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
     confirmed TINYINT(1),
     created_on DATETIME DEFAULT NOW(),
@@ -35,7 +35,8 @@ CREATE TABLE family_not_registered (
     id INT NOT NULL AUTO_INCREMENT,
     registered_user_id INT NOT NULL,
     unregistered_email VARCHAR(255) NOT NULL,
-    registered_user_relationship_type ENUM('HUSBAND', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
+    registered_user_relationship_type ENUM('HUSBAND', 'PARTNER', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
+    unregistered_user_relationship_type ENUM('HUSBAND', 'PARTNER', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
     created_on DATETIME DEFAULT NOW(),
     updated_on DATETIME DEFAULT NOW(),
     deleted_on DATETIME DEFAULT NULL,

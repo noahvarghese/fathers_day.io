@@ -5,6 +5,7 @@ export enum relationship_types {
     Grandchild = "GRANDCHILD",
     Greatgrandchild = "GREATGRANDCHILD",
     Parent = "PARENT",
-    GrandParent="GRANDPARENT",
-    GreatGrandParent = "GREATGRANDPARENT"
-};
+    GrandParent = "GRANDPARENT",
+    GreatGrandParent = "GREATGRANDPARENT",
+    Partner = "PARTNER",
+}
