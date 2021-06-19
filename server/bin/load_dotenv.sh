@@ -10,6 +10,8 @@ get_vars() {
 }
 
 echo "Must be run with the prefix 'source' or '.' (ex 'source ./bin/load_dotenv.sh')"
+echo "Can also be run with path to .env file (ex source ./server/bin/load_dotenv.sh ./server/.env"
+# echo ""
 
 if [[ $NUM_ARGS -gt 0 ]]
 then
@@ -18,7 +20,7 @@ then
         if [[ -f $file_path ]]
         then
             get_vars $file_path
-            echo $VARS
+            # echo $VARS
             export $VARS
         fi
     done
@@ -26,7 +28,7 @@ else
     if [[ -f .env ]]
     then
         get_vars $DEFAULT_ENV_PATH
-        echo $VARS
+        # echo $VARS
         export $VARS
     fi
 fi

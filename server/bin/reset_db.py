@@ -5,10 +5,11 @@
 # python ./bin/reset_db.py -t --files ./database/ --path .env
 
 import sys, getopt, os, re
-from os import path, listdir
+from os import path, listdir, system, name
 from os.path import join, dirname, abspath, isdir
 import mysql.connector
 import dotenv
+import subprocess
 
 files = []
 
@@ -26,6 +27,7 @@ db = None
 cursor = None
 sql = []
 
+DOTENV_PATH = ""
 DB_HOST = ""
 DB_USER = ""
 DB_PWD = ""
@@ -35,6 +37,7 @@ def parse_args():
     global files
 
     env = "" 
+    dotenv_path = ""
     try:
         opts, args = getopt.getopt(sys.argv[1:], "dhf:pt", ["dev", "files=", "help", "path=", "prod", "test"])
     except:
@@ -50,6 +53,8 @@ def parse_args():
             env = "_test"
         elif opt == "--path" and arg != "":
             dotenv.load_dotenv(arg)
+            global DOTENV_PATH
+            DOTENV_PATH = arg
         elif opt in ('-f', '--files'):
             files = arg.split(",")
         else:
@@ -57,11 +62,14 @@ def parse_args():
             sys.exit()
 
     if len(files) < 1:
-        print("Please ")
+        print("must have a path to the sql files")
 
     return env
 
 def set_env(db_env):
+    # Needs to not be hardcoded
+    # Add to options
+    subprocess.call(['./server/bin/load_dotenv.sh', DOTENV_PATH])
     global DB_HOST
     global DB_USER 
     global DB_PWD
@@ -155,9 +163,10 @@ def execute_sql(db, cursor):
         try:
             cursor.execute(statment)
             db.commit()
-        except:
-            print("SQL query failed")
+        except Exception as e:
+            print("SQL query failed\n")
             print(statment, "\n")
+            print(e)
             cursor.close()
             db.close()
             sys.exit()
@@ -200,6 +209,14 @@ def init_sql_conn():
 
 
 def main():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+   
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+
     db_env = parse_args()
     set_env(db_env)
     init_sql_conn()

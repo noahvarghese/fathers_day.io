@@ -39,15 +39,16 @@ CREATE TABLE family_not_registered (
     updated_on DATETIME DEFAULT NOW(),
     deleted_on DATETIME DEFAULT NULL,
     PRIMARY KEY(id),
-    FOREIGN KEY(registered_user_id) REFERENCES user(id),
+    FOREIGN KEY(registered_user_id) REFERENCES user(id)
 );
 
-CREATE TABLE coupons (
+CREATE TABLE coupon (
     id INT NOT NULL AUTO_INCREMENT,
-    title VARCHAR(255) NOT NULL,
+    title VARCHAR(255) COLLATE UTF8_GENERAL_CI NOT NULL,
     redemption_requested TINYINT(1),
+    to_be_completed_by_date DATETIME DEFAULT NULL,
     redeemed TINYINT(1), 
-    completed_by DATETIME DEFAULT NULL,
+    redeem_notes VARCHAR(255) COLLATE UTF8_GENERAL_CI DEFAULT NULL,
     completed TINYINT(1),
     relationship INT NOT NULL,
     created_on DATETIME DEFAULT NOW(),
