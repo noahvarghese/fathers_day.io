@@ -62,6 +62,20 @@ const AddFamily: React.FC<AddFamilyProps> = ({ setLoggedIn }) => {
                             relationship: e.target.value as relationship_types,
                         })
                     }
+                    datalist={{
+                        options: [
+                            relationship_types.Child,
+                            relationship_types.GrandChild,
+                            relationship_types.GrandParent,
+                            relationship_types.GreatGrandChild,
+                            relationship_types.GreatGrandParent,
+                            relationship_types.Husband,
+                            relationship_types.Parent,
+                            relationship_types.Partner,
+                            relationship_types.Wife,
+                        ],
+                        list: "relationship_types",
+                    }}
                 />
                 <Button text="add" onClick={addFamily} />
             </form>

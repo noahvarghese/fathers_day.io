@@ -8,6 +8,10 @@ interface InputProps {
     isReadonly?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: string;
+    datalist?: {
+        list: string;
+        options: string[];
+    };
 }
 
 const Input: React.FC<InputProps> = (props) => {
@@ -19,9 +23,18 @@ const Input: React.FC<InputProps> = (props) => {
                 readOnly={props.isReadonly}
                 name={props.name}
                 onChange={props.onChange}
-                value={props.value}
+                value={props.value ?? undefined}
                 autoComplete="off"
+                list={props.datalist ? props.datalist.list : undefined}
             />
+
+            {props.datalist ? (
+                <datalist id={props.datalist.list}>
+                    {props.datalist.options.map((opt) => (
+                        <option value={opt} />
+                    ))}
+                </datalist>
+            ) : null}
         </div>
     );
 };
