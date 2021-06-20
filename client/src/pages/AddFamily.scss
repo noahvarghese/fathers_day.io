@@ -1,11 +1,12 @@
 @import "../assets/css/global.scss";
 
-.Family {
+.AddFamily {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 2rem;
 
     nav {
         width: 95%;
@@ -23,18 +24,11 @@
         }
     }
 
-    footer {
-        width: 80%;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        background-color: white;
+    form {
         display: flex;
-        justify-content: flex-end;
-        position: fixed;
-        bottom: 0;
-
-        button {
-            width: min-content;
-        }
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
     }
 }

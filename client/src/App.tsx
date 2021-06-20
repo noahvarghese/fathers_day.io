@@ -4,6 +4,8 @@ import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Family from "./pages/Family";
+import AddFamily from "./pages/AddFamily";
 import { server } from "./util/permalink";
 
 const App: React.FC = () => {
@@ -39,6 +41,30 @@ const App: React.FC = () => {
                     path="/home"
                     component={() => (
                         <Home
+                            setLoggedIn={() => {
+                                setLoggedIn(!loggedIn);
+                            }}
+                        />
+                    )}
+                />
+                <ProtectedRoute
+                    exact={true}
+                    isAuthenticated={loggedIn}
+                    path="/family"
+                    component={() => (
+                        <Family
+                            setLoggedIn={() => {
+                                setLoggedIn(!loggedIn);
+                            }}
+                        />
+                    )}
+                />
+                <ProtectedRoute
+                    exact={true}
+                    isAuthenticated={loggedIn}
+                    path="/family/add"
+                    component={() => (
+                        <AddFamily
                             setLoggedIn={() => {
                                 setLoggedIn(!loggedIn);
                             }}
