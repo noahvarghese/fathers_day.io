@@ -1,0 +1,27 @@
+div.input {
+  border: 1px solid #707070;
+  border-radius: 0.2rem;
+  max-width: 95%;
+  width: 25rem;
+  height: 3rem;
+  box-shadow: 4px 8px 8px rgba(44, 44, 44, 0.3);
+  padding: 0;
+  padding-left: 1rem;
+}
+div.input input {
+  margin: auto;
+  font-size: 1.25rem;
+  width: calc(100% - 2rem);
+  height: calc(100% - 0.5rem);
+  border-radius: 0.2rem;
+  color: #707070;
+  border: none;
+  padding: 0.25rem, 0.5rem;
+  outline: none;
+}
+div.input input::placeholder {
+  font-size: 1.25rem;
+  color: #707070;
+}
+
+/*# sourceMappingURL=Input.css.map */

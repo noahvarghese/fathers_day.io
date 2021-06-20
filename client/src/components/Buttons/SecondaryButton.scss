@@ -1,0 +1,19 @@
+@import "../../assets/css/global.scss";
+
+button.SecondaryButton {
+    background-color: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: $base-color;
+    border-radius: 0.2rem;
+    max-width: 60%;
+    width: 15rem;
+    margin: 0;
+    padding: 0;
+    height: min-content;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
