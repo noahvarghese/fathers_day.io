@@ -60,6 +60,7 @@ router.post("/", async (req: Request, res: Response) => {
                     giver: user.id,
                     giver_relationship:
                         pending_member.unregistered_user_relationship_type,
+                    initiator: pending_member.registered_user_id,
                 });
 
                 const famRequest2: Family = new Family({
@@ -70,6 +71,7 @@ router.post("/", async (req: Request, res: Response) => {
                     giver: pending_member.registered_user_id,
                     giver_relationship:
                         pending_member.registered_user_relationship_type,
+                    initiator: pending_member.registered_user_id,
                 });
 
                 await connection.manager.save(famRequest1);
@@ -93,6 +95,7 @@ router.post("/", async (req: Request, res: Response) => {
                         giver: user.id,
                         giver_relationship:
                             pending_member.unregistered_user_relationship_type,
+                        initiator: pending_member.registered_user_id,
                     });
 
                     await connection.manager.save(famRequest);
@@ -105,14 +108,21 @@ router.post("/", async (req: Request, res: Response) => {
                         receiver: user.id,
                         receiver_relationship:
                             pending_member.unregistered_user_relationship_type,
+                        initiator: pending_member.registered_user_id,
                     });
 
                     await connection.manager.save(famRequest);
                 }
             }
+
+            await connection.manager.delete(
+                FamilyNotRegistered,
+                pending_member.id
+            );
         }
     }
 
+    req.session.user_id = user.id;
     res.status(200).json({ message: "Successful signup" });
 });
 

@@ -3,6 +3,10 @@ import Family from "../../models/family";
 import FamilyNotRegistered from "../../models/family_not_registered";
 import { relationship_types } from "../../models/relationship_types";
 import User from "../../models/user";
+import {
+    sendRelationshipRequest,
+    sendUnregisteredRelationshipRequest,
+} from "../../util/mail";
 
 const router = Router();
 
@@ -134,6 +138,15 @@ router.post("/", async (req: Request, res: Response) => {
 
             await connection.manager.save(famRequest);
         }
+        await sendRelationshipRequest(
+            (
+                await connection.manager.find(User, { where: { id: user_id } })
+            )[0],
+            email,
+            giver,
+            receiver,
+            relationship
+        );
     } else {
         const famRequest: FamilyNotRegistered = new FamilyNotRegistered({
             registered_user_id: user_id,
@@ -144,6 +157,15 @@ router.post("/", async (req: Request, res: Response) => {
         await connection.manager.save(famRequest);
 
         // Send EMAIL
+        await sendUnregisteredRelationshipRequest(
+            (
+                await connection.manager.find(User, { where: { id: user_id } })
+            )[0],
+            email,
+            giver,
+            receiver,
+            relationship
+        );
     }
 
     res.sendStatus(200);

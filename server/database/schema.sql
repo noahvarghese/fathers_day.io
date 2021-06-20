@@ -20,6 +20,7 @@ CREATE TABLE family (
     id INT NOT NULL AUTO_INCREMENT,
     giver INT NOT NULL,
     receiver INT NOT NULL,
+    initiator INT NOT NULL,
     giver_relationship ENUM('HUSBAND', 'WIFE', 'PARTNER', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
     receiver_relationship ENUM('HUSBAND', 'WIFE', 'PARENT', 'GRANDPARENT', 'GREATGRANDPARENT', 'CHILD', 'GRANDCHILD', 'GREATGRANDCHILD'),
     confirmed TINYINT(1),
@@ -27,6 +28,7 @@ CREATE TABLE family (
     updated_on DATETIME DEFAULT NOW(),
     deleted_on DATETIME DEFAULT NULL,
     PRIMARY KEY(id),
+    FOREIGN KEY(initiator) REFERENCES user(id),
     FOREIGN KEY(giver) REFERENCES user(id),
     FOREIGN KEY(receiver) REFERENCES user(id)
 );

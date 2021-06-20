@@ -49,6 +49,10 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
             credentials: "include",
         });
 
+        if (response.status !== 200) {
+            return [];
+        }
+
         const data = await response.json();
         return data as FamilyAttributes[];
     };
@@ -69,27 +73,37 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
             </nav>
             <h1>Family</h1>
             <table>
-                {family.map((fam) => (
-                    <tr>
-                        <td>{fam.name}</td>
-                        <td>{fam.relationship.toLowerCase()}</td>
-                    </tr>
-                ))}
+                {family.length > 0
+                    ? family.map((fam) => (
+                          <tr>
+                              <td>{fam.name}</td>
+                              <td>{fam.relationship.toLowerCase()}</td>
+                          </tr>
+                      ))
+                    : null}
             </table>
             <h2>Requests</h2>
             <table>
-                {pendingFamily.map((fam) => (
-                    <tr>
-                        <td>{fam.name}</td>
-                        <td>{fam.relationship.toLowerCase()}</td>
-                        <td>
-                            <SecondaryButton text="yes" className="acceptBtn" />
-                        </td>
-                        <td>
-                            <SecondaryButton text="no" className="declineBtn" />
-                        </td>
-                    </tr>
-                ))}
+                {pendingFamily.length > 0
+                    ? pendingFamily.map((fam) => (
+                          <tr>
+                              <td>{fam.name}</td>
+                              <td>{fam.relationship.toLowerCase()}</td>
+                              <td>
+                                  <SecondaryButton
+                                      text="yes"
+                                      className="acceptBtn"
+                                  />
+                              </td>
+                              <td>
+                                  <SecondaryButton
+                                      text="no"
+                                      className="declineBtn"
+                                  />
+                              </td>
+                          </tr>
+                      ))
+                    : null}
             </table>
             <footer>
                 <SecondaryButton

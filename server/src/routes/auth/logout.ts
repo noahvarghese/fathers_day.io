@@ -11,8 +11,6 @@ router.post("/", async (req: Request, res: Response) => {
                 res.sendStatus(200);
             }
         });
-    } else {
-        console.log("No session id");
     }
 });
 

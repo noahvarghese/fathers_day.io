@@ -8,6 +8,7 @@ export interface FamilyAttributes {
     giver_relationship: relationship_types;
     receiver_relationship: relationship_types;
     confirmed: boolean;
+    initiator: number;
 }
 
 const EmptyFamilyAttributes = (): FamilyAttributes => ({
@@ -16,13 +17,14 @@ const EmptyFamilyAttributes = (): FamilyAttributes => ({
     giver_relationship: relationship_types.Child,
     receiver_relationship: relationship_types.Parent,
     confirmed: false,
+    initiator: -1,
 });
 
 export const FamilyBuilder = <T extends Partial<FamilyAttributes>>(
     options?: T
 ): FamilyAttributes & T => Object.assign(EmptyFamilyAttributes(), options);
 
-@Entity({ name: "family_not_registered" })
+@Entity({ name: "family" })
 export default class Family extends BaseModel implements FamilyAttributes {
     @Column()
     public giver!: number;
@@ -34,6 +36,8 @@ export default class Family extends BaseModel implements FamilyAttributes {
     public receiver_relationship!: relationship_types;
     @Column()
     public confirmed!: boolean;
+    @Column()
+    public initiator!: number;
 
     public constructor(options?: Partial<FamilyAttributes>) {
         super();
