@@ -36,7 +36,7 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
 
     const loadFamily = async (): Promise<FamilyAttributes[]> => {
         const response = await fetch(server + "family", {
-            method: "POST",
+            method: "GET",
             credentials: "include",
         });
         const data = await response.json();
@@ -45,7 +45,7 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
 
     const loadPendingFamily = async (): Promise<FamilyAttributes[]> => {
         const response = await fetch(server + "family/pending", {
-            method: "POST",
+            method: "GET",
             credentials: "include",
         });
 

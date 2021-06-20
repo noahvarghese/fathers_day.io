@@ -54,6 +54,7 @@ const AddFamily: React.FC<AddFamilyProps> = ({ setLoggedIn }) => {
                 <Input
                     type="text"
                     name="relationship"
+                    placeholder="their relationship to you"
                     value={addFamilyState.relationship}
                     onChange={(e) =>
                         setAddFamilyState({

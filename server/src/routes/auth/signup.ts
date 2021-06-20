@@ -42,6 +42,7 @@ router.post("/", async (req: Request, res: Response) => {
 
     if (pending_family_members.length > 0) {
         for (const pending_member of pending_family_members) {
+            // if the relationship of the new user is husband/wife/partner, then make bi directional relationship
             if (
                 pending_member.registered_user_relationship_type ===
                     relationship_types.Husband ||
@@ -74,6 +75,8 @@ router.post("/", async (req: Request, res: Response) => {
                 await connection.manager.save(famRequest1);
                 await connection.manager.save(famRequest2);
             } else {
+                // if the relationship of the new user is a child
+                // then the receiver is the new user
                 if (
                     pending_member.registered_user_relationship_type ===
                         relationship_types.Parent ||

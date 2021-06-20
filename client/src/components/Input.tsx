@@ -4,6 +4,7 @@ import "./Input.css";
 interface InputProps {
     type: string;
     name: string;
+    placeholder?: string;
     isReadonly?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     value: string;
@@ -13,7 +14,7 @@ const Input: React.FC<InputProps> = (props) => {
     return (
         <div className="input">
             <input
-                placeholder={props.name}
+                placeholder={props.placeholder ?? props.name}
                 type={props.type}
                 readOnly={props.isReadonly}
                 name={props.name}
