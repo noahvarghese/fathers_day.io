@@ -27,11 +27,16 @@
 .Family table {
   width: 25rem;
   max-width: 95%;
+  margin-bottom: 1rem;
 }
 .Family table tr {
   display: flex;
   align-items: center;
+  padding-bottom: 1rem;
   justify-content: space-between;
+}
+.Family table tr:not(:last-of-type) {
+  border-bottom: 1px solid #707070;
 }
 .Family table tr td {
   font-size: 1.2rem;

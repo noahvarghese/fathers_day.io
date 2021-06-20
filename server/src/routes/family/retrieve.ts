@@ -26,6 +26,7 @@ const getRequests = async (confirmed: boolean, req: Request) => {
         if (user.length !== 1) return;
 
         returnVals.push({
+            id: fam.id,
             name: user[0].name,
             relationship:
                 fam.giver === user_id

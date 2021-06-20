@@ -3,6 +3,7 @@ import Family from "../../models/family";
 import FamilyNotRegistered from "../../models/family_not_registered";
 import { relationship_types } from "../../models/relationship_types";
 import User from "../../models/user";
+import Logs from "../../util/logs/logs";
 import {
     sendRelationshipRequest,
     sendUnregisteredRelationshipRequest,
@@ -80,6 +81,7 @@ router.post("/", async (req: Request, res: Response) => {
         if (giver && receiver) {
             // create 2 relationship instances for husband/wife wife/husband partner/partner etc
             const famRequest1: Family = new Family({
+                initiator: user_id,
                 confirmed: false,
                 receiver: user[0].id,
                 receiver_relationship: relationship,
@@ -93,6 +95,7 @@ router.post("/", async (req: Request, res: Response) => {
             });
 
             const famRequest2: Family = new Family({
+                initiator: user_id,
                 confirmed: false,
                 receiver: user_id,
                 receiver_relationship:
@@ -109,6 +112,7 @@ router.post("/", async (req: Request, res: Response) => {
             await connection.manager.save(famRequest2);
         } else if (giver && !receiver) {
             const famRequest: Family = new Family({
+                initiator: user_id,
                 confirmed: false,
                 receiver: user[0].id,
                 receiver_relationship: relationship,
@@ -124,6 +128,7 @@ router.post("/", async (req: Request, res: Response) => {
             await connection.manager.save(famRequest);
         } else {
             const famRequest: Family = new Family({
+                initiator: user_id,
                 confirmed: false,
                 receiver: user_id,
                 receiver_relationship:
@@ -173,11 +178,10 @@ router.post("/", async (req: Request, res: Response) => {
 
 router.post("/confirm", async (req: Request, res: Response) => {
     const { SqlConnection: connection } = req;
-    const { user_id } = req.session;
     const { id, confirmed } = req.body;
 
     let famRequests: Family[] = await connection.manager.find(Family, {
-        where: { giver: user_id, receiver: id },
+        where: { id },
     });
 
     if (famRequests.length > 1) {
@@ -185,33 +189,16 @@ router.post("/confirm", async (req: Request, res: Response) => {
         return;
     }
 
-    if (famRequests.length === 1) {
-        famRequests[0].confirmed = confirmed;
-
-        await connection.manager.save(famRequests[0]);
-    } else {
-        famRequests = await connection.manager.find(Family, {
-            where: { giver: id, receiver: user_id },
-        });
-
-        if (famRequests.length > 1) {
-            res.status(500).json({ message: "To many requests." });
-            return;
-        }
-
-        if (famRequests.length > 1) {
-            res.status(500).json({ message: "To many requests." });
-        }
-
-        famRequests[0].confirmed = confirmed;
-
-        await connection.manager.save(famRequests[0]);
-
-        if (famRequests.length === 1) {
-            famRequests[0].confirmed = confirmed;
-
+    try {
+        if (confirmed) {
+            famRequests[0].confirmed = true;
             await connection.manager.save(famRequests[0]);
+        } else {
+            await connection.manager.delete(Family, id);
         }
+    } catch (e) {
+        Logs.Error("Update failed");
+        res.status(500).json({ message: "SQL query faile" });
     }
 
     res.sendStatus(200);

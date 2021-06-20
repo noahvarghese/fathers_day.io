@@ -30,10 +30,16 @@
     table {
         width: 25rem;
         max-width: 95%;
+        margin-bottom: 1rem;
         tr {
             display: flex;
             align-items: center;
+            padding-bottom: 1rem;
             justify-content: space-between;
+
+            &:not(:last-of-type) {
+                border-bottom: 1px solid $base-color;
+            }
             td {
                 font-size: 1.2rem;
                 button {

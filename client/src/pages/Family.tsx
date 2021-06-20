@@ -5,6 +5,7 @@ import Back from "../components/Back";
 import { server } from "../util/permalink";
 import "./Family.css";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
+import { sendJSON } from "../util/request";
 
 export enum relationship_types {
     Husband = "HUSBAND",
@@ -23,6 +24,7 @@ interface FamilyProps {
 }
 
 interface FamilyAttributes {
+    id: number;
     name: string;
     confirmed: boolean;
     relationship: relationship_types;
@@ -97,12 +99,26 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
                                   <SecondaryButton
                                       text="yes"
                                       className="acceptBtn"
+                                      onClick={async () => {
+                                          await sendJSON(
+                                              server + "family/add/confirm",
+                                              { confirmed: true, id: fam.id }
+                                          );
+                                          await loadData();
+                                      }}
                                   />
                               </td>
                               <td>
                                   <SecondaryButton
                                       text="no"
                                       className="declineBtn"
+                                      onClick={async () => {
+                                          await sendJSON(
+                                              server + "family/add/confirm",
+                                              { confirmed: false, id: fam.id }
+                                          );
+                                          await loadData();
+                                      }}
                                   />
                               </td>
                           </tr>
