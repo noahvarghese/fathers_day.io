@@ -13,7 +13,7 @@ router.post("/", async (req: Request, res: Response) => {
     });
 
     if (users.length !== 1) {
-        res.status(500).json({ message: `Invalid login ${email}.` });
+        res.status(500).json({ message: "Invalid username/password" });
         return;
     }
 
@@ -28,7 +28,7 @@ router.post("/", async (req: Request, res: Response) => {
         }
     }
 
-    res.sendStatus(401);
+    res.status(401).json({ message: "Invalid username/password" });
     return;
 });
 

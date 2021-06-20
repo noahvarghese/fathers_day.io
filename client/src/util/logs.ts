@@ -111,8 +111,7 @@ export default class Logs {
             } catch (e) {
                 console.error(e.message);
             }
-
-            if (logLevel === LogLevels.ERROR) console.trace();
+            console.trace();
         }
     };
 

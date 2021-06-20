@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Input from "../components/Input";
 import PrimaryButton from "../components/Buttons/PrimaryButton";
 import SecondaryButton from "../components/Buttons/SecondaryButton";
+import Error from "../components/Error";
 import SuperDad from "../assets/img/super_dad.png";
+import { server } from "../util/permalink";
+import { sendJSON } from "../util/request";
 import "./Login.css";
 
 interface LoginInputs {
@@ -17,32 +21,95 @@ interface RegisterInputs {
     confirmPassword: string;
 }
 
+const emptyRegInputs = {
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+};
+
+const emptyLoginInputs = {
+    email: "",
+    password: "",
+};
+
 const LoginPage: React.FC = () => {
+    const history = useHistory();
+
     const [registerVisible, setRegisterVisible] = useState(false);
 
-    const [registerInfo, setRegInfo] = useState<RegisterInputs>({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+    const [error, setError] = useState("");
 
-    const [loginInfo, setLoginInfo] = useState<LoginInputs>({
-        email: "",
-        password: "",
-    });
+    const [registerInfo, setRegInfo] = useState<RegisterInputs>(emptyRegInputs);
 
-    const setVisible = () => setRegisterVisible(!registerVisible);
+    const [loginInfo, setLoginInfo] = useState<LoginInputs>(emptyLoginInputs);
 
-    const register = () => {};
+    const setVisible = () => {
+        setRegInfo(emptyRegInputs);
+        setLoginInfo(emptyLoginInputs);
+        setRegisterVisible(!registerVisible);
+        setError("");
+    };
+
+    function checkData<T>(info: any): boolean {
+        for (const key of Object.keys(info)) {
+            console.log(key, info[key]);
+            if (!info[key as keyof T]) {
+                setError(`${key} cannot be empty`);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    const login = async () => {
+        if (!checkData<LoginInputs>(loginInfo)) return;
+
+        try {
+            const response = await sendJSON(`${server}auth/login`, loginInfo);
+
+            if (response.status !== 202) {
+                setError((await response.json()).message);
+                return;
+            }
+        } catch (e) {
+            setError("Failed to contact server.");
+            return;
+        }
+
+        history.push("/home");
+    };
+
+    const register = async () => {
+        if (!checkData<RegisterInputs>(registerInfo)) return;
+
+        try {
+            const response = await sendJSON(
+                `${server}auth/signup`,
+                registerInfo
+            );
+
+            if (response.status !== 200) {
+                setError((await response.json()).message);
+                return;
+            }
+        } catch (e) {
+            setError("Failed to contact server.");
+            return;
+        }
+
+        history.push("/home");
+    };
 
     return (
         <div id="LoginPage">
             <div className="imgContainer">
                 <img src={SuperDad} alt="Super Dad" />
             </div>
+            {error ? <Error message={error} /> : null}
             {registerVisible ? (
-                <div id="Register">
+                <form id="Register">
                     <Input
                         type="text"
                         name="name"
@@ -52,6 +119,7 @@ const LoginPage: React.FC = () => {
                                 name: e.target.value,
                             })
                         }
+                        value={registerInfo.name}
                     />
                     <Input
                         type="email"
@@ -62,6 +130,7 @@ const LoginPage: React.FC = () => {
                                 email: e.target.value,
                             })
                         }
+                        value={registerInfo.email}
                     />
                     <Input
                         type="password"
@@ -72,6 +141,7 @@ const LoginPage: React.FC = () => {
                                 password: e.target.value,
                             })
                         }
+                        value={registerInfo.password}
                     />
                     <Input
                         type="password"
@@ -82,12 +152,13 @@ const LoginPage: React.FC = () => {
                                 confirmPassword: e.target.value,
                             });
                         }}
+                        value={registerInfo.confirmPassword}
                     />
-                    <PrimaryButton text="register" />
+                    <PrimaryButton text="register" onClick={register} />
                     <SecondaryButton onClick={setVisible} text="login" />
-                </div>
+                </form>
             ) : (
-                <div id="Login">
+                <form id="Login">
                     <Input
                         type="email"
                         name="email"
@@ -97,6 +168,7 @@ const LoginPage: React.FC = () => {
                                 email: e.target.value,
                             });
                         }}
+                        value={loginInfo.email}
                     />
                     <Input
                         type="password"
@@ -107,10 +179,11 @@ const LoginPage: React.FC = () => {
                                 password: e.target.value,
                             });
                         }}
+                        value={loginInfo.password}
                     />
-                    <PrimaryButton text="login" />
+                    <PrimaryButton text="login" onClick={login} />
                     <SecondaryButton onClick={setVisible} text="register" />
-                </div>
+                </form>
             )}
         </div>
     );

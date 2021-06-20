@@ -1,0 +1,16 @@
+.Error {
+  max-width: 95%;
+  width: 25rem;
+  height: 3rem;
+  background-color: #f08478;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: #707070;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=Error.css.map */

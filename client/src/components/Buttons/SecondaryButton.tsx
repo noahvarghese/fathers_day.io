@@ -7,6 +7,7 @@ const SecondaryButton: React.FC<ButtonProps> = (props) => {
         <PrimaryButton
             className="SecondaryButton"
             text={props.text}
+            type={props.type}
             onClick={props.onClick}
         />
     );

@@ -18,8 +18,8 @@
   width: 23rem;
   max-width: 90vw;
 }
-#LoginPage div#Register,
-#LoginPage div#Login {
+#LoginPage #Register,
+#LoginPage #Login {
   width: 100vw;
   display: flex;
   flex-direction: column;

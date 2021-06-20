@@ -1,0 +1,16 @@
+@import "../assets/css/global.scss";
+
+.Error {
+    max-width: 95%;
+    width: 25rem;
+    height: 3rem;
+    background-color: #f08478;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    color: $base-color;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
