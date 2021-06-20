@@ -5,7 +5,7 @@ import "./SecondaryButton.css";
 const SecondaryButton: React.FC<ButtonProps> = (props) => {
     return (
         <PrimaryButton
-            className="SecondaryButton"
+            className={props.className ?? "SecondaryButton"}
             text={props.text}
             type={props.type}
             onClick={props.onClick}

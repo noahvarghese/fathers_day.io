@@ -5,6 +5,10 @@
   align-items: center;
   justify-content: center;
 }
+.Family h1,
+.Family h2 {
+  margin-bottom: 2rem;
+}
 .Family nav {
   width: 95%;
   margin-top: 1rem;
@@ -20,13 +24,39 @@
 .Family nav button {
   width: min-content;
 }
+.Family table {
+  width: 25rem;
+  max-width: 95%;
+}
+.Family table tr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Family table tr td {
+  font-size: 1.2rem;
+}
+.Family table tr td button {
+  width: min-content;
+  font-size: 1.2rem;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+}
+.Family table tr td button.acceptBtn {
+  color: #3da519;
+}
+.Family table tr td button.declineBtn {
+  color: #c42828;
+}
 .Family footer {
   width: 80%;
   padding-top: 2rem;
   padding-bottom: 2rem;
   background-color: white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
 }

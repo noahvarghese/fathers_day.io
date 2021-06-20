@@ -57,10 +57,14 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
         return data as FamilyAttributes[];
     };
 
+    const loadData = async () => {
+        setFamily(await loadFamily());
+        setPendingFamily(await loadPendingFamily());
+    };
+
     useEffect(() => {
         (async () => {
-            setFamily(await loadFamily());
-            setPendingFamily(await loadPendingFamily());
+            await loadData();
         })();
     }, []);
 
@@ -106,6 +110,10 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
                     : null}
             </table>
             <footer>
+                <SecondaryButton
+                    text="refresh"
+                    onClick={async () => await loadData()}
+                />
                 <SecondaryButton
                     text="add"
                     onClick={() => history.push("/family/add")}
