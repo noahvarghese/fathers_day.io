@@ -1,0 +1,22 @@
+.Home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+
+    nav {
+        margin-top: 1rem;
+        width: 95%;
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            margin-right: 0;
+            width: min-content;
+        }
+    }
+    h1 {
+        font-weight: 300;
+    }
+}

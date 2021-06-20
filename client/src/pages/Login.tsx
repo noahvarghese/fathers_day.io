@@ -33,7 +33,7 @@ const emptyLoginInputs = {
     password: "",
 };
 
-const LoginPage: React.FC = () => {
+const LoginPage: React.FC<{ setLogin: () => void }> = (props) => {
     const history = useHistory();
 
     const [registerVisible, setRegisterVisible] = useState(false);
@@ -78,6 +78,7 @@ const LoginPage: React.FC = () => {
             return;
         }
 
+        props.setLogin();
         history.push("/home");
     };
 
@@ -99,6 +100,7 @@ const LoginPage: React.FC = () => {
             return;
         }
 
+        props.setLogin();
         history.push("/home");
     };
 

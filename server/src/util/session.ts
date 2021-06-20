@@ -49,6 +49,7 @@ export const createSession = async (): Promise<
         rolling: true,
         saveUninitialized: false,
         cookie: {
+            httpOnly: false,
             maxAge: 8 * 60 * 60 * 1000,
             sameSite: "lax",
         },
