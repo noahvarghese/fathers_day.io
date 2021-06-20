@@ -5,7 +5,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import { server } from "./util/permalink";
-import Cookies from "js-cookie";
 
 const App: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -13,9 +12,6 @@ const App: React.FC = () => {
 
     useEffect(() => {
         window.addEventListener("beforeunload", async () => {
-            // the method that will be used for both add and remove event
-            // e.preventDefault();
-            // e.returnValue = "";
             await fetch(server + "auth/logout", {
                 method: "POST",
                 credentials: "include",
@@ -32,7 +28,6 @@ const App: React.FC = () => {
                     component={() => (
                         <Login
                             setLogin={() => {
-                                // setCookie(Cookies.get("fathers_day_sid"));
                                 setLoggedIn(!loggedIn);
                             }}
                         />
@@ -45,8 +40,6 @@ const App: React.FC = () => {
                     component={() => (
                         <Home
                             setLoggedIn={() => {
-                                console.log(!loggedIn);
-                                // setCookie(undefined);
                                 setLoggedIn(!loggedIn);
                             }}
                         />

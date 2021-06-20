@@ -53,7 +53,6 @@ const LoginPage: React.FC<{ setLogin: () => void }> = (props) => {
 
     function checkData<T>(info: any): boolean {
         for (const key of Object.keys(info)) {
-            console.log(key, info[key]);
             if (!info[key as keyof T]) {
                 setError(`${key} cannot be empty`);
                 return false;

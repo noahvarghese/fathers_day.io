@@ -6,7 +6,6 @@ const Logout: React.FC<{
     setLoggedIn: () => void;
 }> = (props) => {
     const logout = async () => {
-        console.log("hello");
         await fetch(server + "auth/logout", {
             method: "POST",
             credentials: "include",
