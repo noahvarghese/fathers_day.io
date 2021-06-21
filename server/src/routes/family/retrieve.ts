@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { Connection, Not } from "typeorm";
 import Family from "../../models/family";
+import FamilyNotRegistered from "../../models/family_not_registered";
 import User from "../../models/user";
 import Logs from "../../util/logs/logs";
 
@@ -35,6 +36,26 @@ const getRequests = async (confirmed: boolean, req: Request) => {
                     : fam.giver_relationship,
             initiator: fam.initiator === user_id,
         });
+    }
+
+    if (!confirmed) {
+        const famNotRegistered = await connection.manager.find(
+            FamilyNotRegistered,
+            {
+                where: {
+                    registered_user_id: user_id,
+                },
+            }
+        );
+
+        for (const fam of famNotRegistered) {
+            returnVals.push({
+                id: fam.id,
+                name: fam.unregistered_email,
+                relationship: fam.unregistered_user_relationship_type,
+                initiator: true,
+            });
+        }
     }
 
     return returnVals;
