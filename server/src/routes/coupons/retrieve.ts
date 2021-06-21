@@ -30,10 +30,8 @@ const getCoupons = async (req: Request, giver: boolean) => {
 
         const user = await connection.manager.findOne(
             User,
-            giver ? fam.giver : fam.receiver
+            giver ? fam.receiver : fam.giver
         );
-
-        console.log(coupons);
 
         for (const coupon of coupons) {
             returnVals.push({
