@@ -4,6 +4,7 @@ import Logs from "./logs/logs";
 import User from "../models/user";
 import { client } from "./permalink";
 import { relationship_types } from "../models/relationship_types";
+import Coupon from "../models/coupon";
 dotenv.config();
 
 export interface mailOptions {
@@ -20,6 +21,22 @@ export const defaultMailOpts = (): mailOptions => ({
     subject: "",
     text: "",
 });
+
+export const sendNewCoupon = async (
+    giver: User,
+    receiver: User,
+    coupon: Coupon,
+    quantity: number
+) => {
+    const subject = "New Coupon";
+    const html = `<div><div><sub><em>Please do not reply to this email. It will not reach the intended recipient.</em></sub></div><div>${giver.name} has sent you ${quantity} coupons for ${coupon.title}</div></div>`;
+    const mailOpts = defaultMailOpts();
+    mailOpts.subject = subject;
+    mailOpts.html = html;
+    mailOpts.to = receiver.email;
+
+    return await sendMail(mailOpts);
+};
 
 export const sendRelationshipRequest = async (
     user: User,

@@ -1,6 +1,8 @@
 import { Router, Request, Response } from "express";
 import Coupon from "../../models/coupon";
 import Family from "../../models/family";
+import User from "../../models/user";
+import { sendNewCoupon } from "../../util/mail";
 
 const router = Router();
 
@@ -26,6 +28,15 @@ router.post("/", async (req: Request, res: Response) => {
             await connection.manager.save(coupon);
         }
 
+        const giver = await connection.manager.findOne(User, user_id);
+        const receiver = await connection.manager.findOne(User, id);
+
+        await sendNewCoupon(
+            giver ?? new User(),
+            receiver ?? new User(),
+            new Coupon({ title }),
+            quantity
+        );
         res.sendStatus(200);
         return;
     } catch (e) {
