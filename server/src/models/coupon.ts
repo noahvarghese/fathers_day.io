@@ -1,4 +1,4 @@
-import {Entity, Column} from "typeorm";
+import { Entity, Column } from "typeorm";
 import BaseModel from "./base_model";
 
 export interface CouponAttributes {
@@ -20,20 +20,20 @@ const EmptyCouponAttributes = (): CouponAttributes => ({
     redeem_notes: "",
     completed: false,
     completed_on: undefined,
-    relationship: -1
+    relationship: -1,
 });
 
 export const CouponBuilder = <T extends Partial<CouponAttributes>>(
     options?: T
 ): CouponAttributes & T => Object.assign(EmptyCouponAttributes(), options);
 
-@Entity({name: "family_not_registered"})
+@Entity({ name: "coupon" })
 export default class Coupon extends BaseModel implements CouponAttributes {
     @Column()
     public title!: string;
     @Column()
     public redemption_requested!: boolean;
-    @Column({type: 'datetime'})
+    @Column({ type: "datetime" })
     public to_be_completed_by_date?: Date | undefined;
     @Column()
     public redeemed!: boolean;
@@ -41,7 +41,7 @@ export default class Coupon extends BaseModel implements CouponAttributes {
     public redeem_notes!: string;
     @Column()
     public completed!: boolean;
-    @Column({type: 'datetime'})
+    @Column({ type: "datetime" })
     public completed_on?: Date | undefined;
     @Column()
     public relationship!: number;

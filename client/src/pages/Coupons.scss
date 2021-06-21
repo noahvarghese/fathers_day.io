@@ -1,6 +1,6 @@
 @import "../assets/css/global.scss";
 
-.Family {
+.Coupons {
     h1,
     h2 {
         margin-bottom: 2rem;
@@ -27,37 +27,25 @@
         }
     }
 
-    table {
-        width: 25rem;
-        max-width: 95%;
-        margin-bottom: 1rem;
-        tr {
-            margin: auto;
-            max-width: 85%;
+    .subNav {
+        display: flex;
+        justify-content: center;
+        ul {
             display: flex;
-            align-items: center;
-            padding-bottom: 1rem;
-            justify-content: space-between;
 
-            &:not(:last-of-type) {
-                border-bottom: 1px solid $base-color;
-            }
-            td {
-                font-size: 1.2rem;
+            list-style-type: none;
+
+            li {
+                &:not(:last-of-type) {
+                    padding-right: 1rem;
+                    border-right: 1px solid $base-color;
+                }
+
+                &:not(:first-of-type) {
+                    padding-left: 1rem;
+                }
                 button {
                     width: min-content;
-                    font-size: 1.2rem;
-                    outline: none;
-                    cursor: pointer;
-                    background: transparent;
-                    border: none;
-                    &.acceptBtn {
-                        color: #3da519;
-                    }
-
-                    &.declineBtn {
-                        color: #c42828;
-                    }
                 }
             }
         }

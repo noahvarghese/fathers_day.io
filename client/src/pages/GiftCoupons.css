@@ -1,0 +1,37 @@
+.GiftCoupons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.GiftCoupons form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.GiftCoupons h1,
+.GiftCoupons h2 {
+  margin-bottom: 2rem;
+}
+.GiftCoupons nav {
+  width: 95%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+.GiftCoupons nav a {
+  color: #707070;
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.GiftCoupons nav button {
+  width: min-content;
+}
+
+/*# sourceMappingURL=GiftCoupons.css.map */

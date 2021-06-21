@@ -51,6 +51,7 @@ CREATE TABLE coupon (
     title VARCHAR(255) COLLATE UTF8_GENERAL_CI NOT NULL,
     redemption_requested TINYINT(1),
     to_be_completed_by_date DATETIME DEFAULT NULL,
+    completed_on DATETIME DEFAULT NULL,
     redeemed TINYINT(1), 
     redeem_notes VARCHAR(255) COLLATE UTF8_GENERAL_CI DEFAULT NULL,
     completed TINYINT(1),

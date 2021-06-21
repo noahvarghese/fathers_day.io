@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
+import Coupons from "./pages/Coupons";
+import GiftCoupons from "./pages/GiftCoupons";
 import Home from "./pages/Home";
 import Family from "./pages/Family";
 import AddFamily from "./pages/AddFamily";
@@ -68,6 +70,24 @@ const App: React.FC = () => {
                             setLoggedIn={() => {
                                 setLoggedIn(!loggedIn);
                             }}
+                        />
+                    )}
+                />
+                <ProtectedRoute
+                    exact={true}
+                    isAuthenticated={loggedIn}
+                    path="/coupons"
+                    component={() => (
+                        <Coupons setLoggedIn={() => setLoggedIn(!loggedIn)} />
+                    )}
+                />
+                <ProtectedRoute
+                    exact={true}
+                    isAuthenticated={loggedIn}
+                    path="/coupons/gift"
+                    component={() => (
+                        <GiftCoupons
+                            setLoggedIn={() => setLoggedIn(!loggedIn)}
                         />
                     )}
                 />

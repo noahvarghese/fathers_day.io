@@ -1,8 +1,8 @@
-.Error {
+.Success {
   max-width: 95%;
   width: 25rem;
   height: 3rem;
-  background-color: #f08478;
+  background-color: #76d581;
   margin-top: 2rem;
   margin-bottom: 2rem;
   color: white;
@@ -12,4 +12,4 @@
   justify-content: center;
 }
 
-/*# sourceMappingURL=Error.css.map */
+/*# sourceMappingURL=Success.css.map */

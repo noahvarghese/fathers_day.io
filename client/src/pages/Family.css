@@ -30,6 +30,8 @@
   margin-bottom: 1rem;
 }
 .Family table tr {
+  margin: auto;
+  max-width: 85%;
   display: flex;
   align-items: center;
   padding-bottom: 1rem;

@@ -28,6 +28,7 @@ interface FamilyAttributes {
     name: string;
     confirmed: boolean;
     relationship: relationship_types;
+    initiator: boolean;
 }
 
 const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
@@ -79,51 +80,67 @@ const Family: React.FC<FamilyProps> = ({ setLoggedIn }) => {
             </nav>
             <h1>Family</h1>
             <table>
-                {family.length > 0
-                    ? family.map((fam) => (
-                          <tr>
-                              <td>{fam.name}</td>
-                              <td>{fam.relationship.toLowerCase()}</td>
-                          </tr>
-                      ))
-                    : null}
+                <tbody>
+                    {family.length > 0
+                        ? family.map((fam) => (
+                              <tr>
+                                  <td>{fam.name}</td>
+                                  <td>{fam.relationship.toLowerCase()}</td>
+                              </tr>
+                          ))
+                        : null}
+                </tbody>
             </table>
             <h2>Requests</h2>
             <table>
-                {pendingFamily.length > 0
-                    ? pendingFamily.map((fam) => (
-                          <tr>
-                              <td>{fam.name}</td>
-                              <td>{fam.relationship.toLowerCase()}</td>
-                              <td>
-                                  <SecondaryButton
-                                      text="yes"
-                                      className="acceptBtn"
-                                      onClick={async () => {
-                                          await sendJSON(
-                                              server + "family/add/confirm",
-                                              { confirmed: true, id: fam.id }
-                                          );
-                                          await loadData();
-                                      }}
-                                  />
-                              </td>
-                              <td>
-                                  <SecondaryButton
-                                      text="no"
-                                      className="declineBtn"
-                                      onClick={async () => {
-                                          await sendJSON(
-                                              server + "family/add/confirm",
-                                              { confirmed: false, id: fam.id }
-                                          );
-                                          await loadData();
-                                      }}
-                                  />
-                              </td>
-                          </tr>
-                      ))
-                    : null}
+                <tbody>
+                    {pendingFamily.length > 0
+                        ? pendingFamily.map((fam) => (
+                              <tr>
+                                  <td>{fam.name}</td>
+                                  <td>{fam.relationship.toLowerCase()}</td>
+                                  {!fam.initiator ? (
+                                      <>
+                                          <td>
+                                              <SecondaryButton
+                                                  text="yes"
+                                                  className="acceptBtn"
+                                                  onClick={async () => {
+                                                      await sendJSON(
+                                                          server +
+                                                              "family/add/confirm",
+                                                          {
+                                                              confirmed: true,
+                                                              id: fam.id,
+                                                          }
+                                                      );
+                                                      await loadData();
+                                                  }}
+                                              />
+                                          </td>
+                                          <td>
+                                              <SecondaryButton
+                                                  text="no"
+                                                  className="declineBtn"
+                                                  onClick={async () => {
+                                                      await sendJSON(
+                                                          server +
+                                                              "family/add/confirm",
+                                                          {
+                                                              confirmed: false,
+                                                              id: fam.id,
+                                                          }
+                                                      );
+                                                      await loadData();
+                                                  }}
+                                              />
+                                          </td>{" "}
+                                      </>
+                                  ) : null}
+                              </tr>
+                          ))
+                        : null}
+                </tbody>
             </table>
             <footer>
                 <SecondaryButton

@@ -1,0 +1,59 @@
+.Coupons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Coupons h1,
+.Coupons h2 {
+  margin-bottom: 2rem;
+}
+.Coupons nav {
+  width: 95%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+.Coupons nav a {
+  color: #707070;
+  font-size: 1.2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.Coupons nav button {
+  width: min-content;
+}
+.Coupons .subNav {
+  display: flex;
+  justify-content: center;
+}
+.Coupons .subNav ul {
+  display: flex;
+  list-style-type: none;
+}
+.Coupons .subNav ul li:not(:last-of-type) {
+  padding-right: 1rem;
+  border-right: 1px solid #707070;
+}
+.Coupons .subNav ul li:not(:first-of-type) {
+  padding-left: 1rem;
+}
+.Coupons .subNav ul li button {
+  width: min-content;
+}
+.Coupons footer {
+  width: 80%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+}
+.Coupons footer button {
+  width: min-content;
+}
+
+/*# sourceMappingURL=Coupons.css.map */
