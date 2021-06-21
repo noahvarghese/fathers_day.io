@@ -35,6 +35,7 @@ const getCoupons = async (req: Request, giver: boolean) => {
 
         for (const coupon of coupons) {
             returnVals.push({
+                giver: fam.giver,
                 name: user?.name,
                 title: coupon.title,
                 redemption_requested: coupon.redemption_requested,

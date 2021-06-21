@@ -1,3 +1,42 @@
+.Coupon {
+  position: relative;
+  box-sizing: border-box;
+  width: 20rem;
+  max-width: 90%;
+  height: 15rem;
+  margin: 150px auto 0;
+  padding: 20px;
+  border-radius: 10px;
+  background: #fbfbfb;
+  box-shadow: 2px 2px 15px 0px #1e7dbd;
+}
+.Coupon:before, .Coupon:after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  height: 6px;
+  width: 290px;
+}
+.Coupon:before {
+  top: -5px;
+  background: radial-gradient(circle, transparent, transparent 50%, #fbfbfb 50%, #fbfbfb 100%) -7px -8px/16px 16px repeat-x;
+}
+.Coupon:after {
+  bottom: -5px;
+  background: radial-gradient(circle, transparent, transparent 50%, #fbfbfb 50%, #fbfbfb 100%) -7px -2px/16px 16px repeat-x;
+}
 
+.ticket-content {
+  height: 100%;
+  width: 100%;
+  border: 6px solid #d8d8d8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #707070;
+}
 
 /*# sourceMappingURL=Coupon.css.map */

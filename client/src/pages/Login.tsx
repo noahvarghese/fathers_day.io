@@ -33,7 +33,10 @@ const emptyLoginInputs = {
     password: "",
 };
 
-const LoginPage: React.FC<{ setLogin: () => void }> = (props) => {
+const LoginPage: React.FC<{
+    setLogin: () => void;
+    setUserID: (id: number) => void;
+}> = (props) => {
     const history = useHistory();
 
     const [registerVisible, setRegisterVisible] = useState(false);
@@ -68,11 +71,16 @@ const LoginPage: React.FC<{ setLogin: () => void }> = (props) => {
         try {
             const response = await sendJSON(`${server}auth/login`, loginInfo);
 
+            const data = await response.json();
+            console.log(data);
             if (response.status !== 202) {
-                setError((await response.json()).message);
+                setError(data.message);
                 return;
+            } else {
+                props.setUserID(data.id);
             }
         } catch (e) {
+            console.log(e);
             setError("Failed to contact server.");
             return;
         }
@@ -93,6 +101,8 @@ const LoginPage: React.FC<{ setLogin: () => void }> = (props) => {
             if (response.status !== 200) {
                 setError((await response.json()).message);
                 return;
+            } else {
+                props.setUserID((await response.json()).id);
             }
         } catch (e) {
             setError("Failed to contact server.");

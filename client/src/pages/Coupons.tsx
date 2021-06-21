@@ -10,9 +10,11 @@ import "./Coupons.css";
 
 interface CouponsProps {
     setLoggedIn: () => void;
+    userID: number;
 }
 
 export interface CouponAttributes {
+    giver: number;
     name: string;
     title: string;
     redemption_requested: boolean;
@@ -90,14 +92,22 @@ const Coupons: React.FC<CouponsProps> = (props) => {
             </div>
             {receivedActive ? (
                 <div className="received container">
-                    {receivedCoupons.map((coupon) => (
-                        <Coupon coupon={coupon} />
+                    {receivedCoupons.map((coupon, index) => (
+                        <Coupon
+                            coupon={coupon}
+                            key={index}
+                            userID={props.userID}
+                        />
                     ))}
                 </div>
             ) : (
                 <div className="sent container">
-                    {sentCoupons.map((coupon) => (
-                        <Coupon coupon={coupon} />
+                    {sentCoupons.map((coupon, index) => (
+                        <Coupon
+                            coupon={coupon}
+                            key={index}
+                            userID={props.userID}
+                        />
                     ))}
                 </div>
             )}

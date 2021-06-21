@@ -123,7 +123,7 @@ router.post("/", async (req: Request, res: Response) => {
     }
 
     req.session.user_id = user.id;
-    res.status(200).json({ message: "Successful signup" });
+    res.status(200).json({ id: user.id, message: "Successful signup" });
 });
 
 export default router;

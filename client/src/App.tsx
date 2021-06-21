@@ -12,6 +12,8 @@ import { server } from "./util/permalink";
 
 const App: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [userID, setUserID] = useState(-1);
+
     // const [cookie, setCookie] = useState(Cookies.get("fathers_day_sid"));
 
     useEffect(() => {
@@ -33,6 +35,10 @@ const App: React.FC = () => {
                         <Login
                             setLogin={() => {
                                 setLoggedIn(!loggedIn);
+                            }}
+                            setUserID={(id: number) => {
+                                console.log(userID);
+                                setUserID(id);
                             }}
                         />
                     )}
@@ -78,7 +84,10 @@ const App: React.FC = () => {
                     isAuthenticated={loggedIn}
                     path="/coupons"
                     component={() => (
-                        <Coupons setLoggedIn={() => setLoggedIn(!loggedIn)} />
+                        <Coupons
+                            setLoggedIn={() => setLoggedIn(!loggedIn)}
+                            userID={userID}
+                        />
                     )}
                 />
                 <ProtectedRoute

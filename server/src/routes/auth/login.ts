@@ -23,7 +23,7 @@ router.post("/", async (req: Request, res: Response) => {
         const success = await user.comparePassword(password);
         if (success) {
             req.session.user_id = user.id;
-            res.sendStatus(202);
+            res.status(202).json({ id: user.id });
             return;
         }
     }
